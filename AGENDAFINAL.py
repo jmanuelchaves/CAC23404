@@ -2,27 +2,6 @@ import os #importa el módulo
 
 agenda1 = {}
 
-def opcionsistema():
-    print("Ingrese la opción que desea realizar:")
-    print("[1] Buscar contacto")
-    print("[2] Agregar contacto")
-    print("[3] Eliminar contacto")
-    print("[4] Mostrar todos los contactos")
-    print("[5] Salir del programa")
-    
-    opciones = input()
-
-    switch = {
-        "1": consultarcontacto,
-        "2": agregarcontacto,
-        "3": eliminarcontacto,
-        "4": todosloscontactos,
-        "5": lambda: print("Gracias por utilizar AGENDA 2023. ¡VUELVA PRONTO!"),
-        }
-    
-    selected_option = switch.get(opciones, lambda: print("Opción inválida. Por favor, ingrese una opción válida."))
-    selected_option()
-    opcionsistema()
 
 def validar_contacto(contacto):
     os.system("cls") #Limpia la terminal con el import os
@@ -30,6 +9,7 @@ def validar_contacto(contacto):
         print ("No ingresó ningún valor")
         contacto = input("Ingrese nuevamente el nombre por favor").capitalize()
     return contacto
+ 
 
 def validar_numero(telefono):
     os.system("cls")
@@ -38,12 +18,13 @@ def validar_numero(telefono):
         telefono = (input("Ingrese nuevamente el teléfono por favor"))
     return telefono
 
-def consultarcontacto():
+
+def consultarcontacto(agenda):
     os.system("cls") #Limpia la terminal con el import os
     contacto = input("Qué nombre quisiera consultar? ").capitalize()
     contacto_validado = validar_contacto(contacto)#Toma el valor ingresado válido
-    if contacto_validado in agenda1:
-        telefono = agenda1[contacto_validado] #SE LE ASIGNA LA VARIABLE TELEFONO AL VALUE Y CONTACTO A LA KEY
+    if contacto_validado in agenda:
+        telefono = agenda[contacto_validado] #SE LE ASIGNA LA VARIABLE TELEFONO AL VALUE Y CONTACTO A LA KEY
         print (f"El teléfono de {contacto_validado} es : {telefono}")
     else:
         print (f"El contacto no se encuentra en la agenda")
@@ -54,7 +35,7 @@ def agregarcontacto():
         contacto = input("Qué nombre quisiera agregar?").capitalize()
         contacto_validado = validar_contacto(contacto)#Toma el valor ingresado válido
         if contacto_validado not in agenda1:
-            telefono = (input(f"Ingrese el número de teléfono del contacto {contacto_validado}"))
+            telefono = (input(f"Ingrese el número de teléfono del contacto {contacto_validado} "))
             telefono_validado = validar_numero(telefono)
             agenda1[contacto_validado] = telefono_validado #SELE ASIGNA EL VALUE TELEFONO
             print (f"El teléfono del nuevo contacto {contacto_validado} es : {telefono_validado}")
@@ -82,10 +63,39 @@ def todosloscontactos():
         print(todo)
     opcionsistema()
 
-     
+
+
+def opcionsistema():
+    print("""Ingrese la opción que desea realizar:
+     [1] Buscar contacto
+     [2] Agregar contacto
+     [3] Eliminar contacto
+     [4] Mostrar todos los contactos
+     [5] Salir del programa""")
+    
+    opciones = input()
+
+    
+    match opciones:
+        case "1": 
+            consultarcontacto(agenda1)
+        case "2": 
+            agregarcontacto()
+        case "3": 
+            eliminarcontacto()
+        case "4": 
+            todosloscontactos()
+        case "5":
+            print("Gracias por utilizar AGENDA 2023. ¡VUELVA PRONTO!")
+        case _ :
+            print("""OPCIÓN INCORRECTA.
+        Por favor seleccione opcion correcta""")
+            opcionsistema()
+            
+
 
 print  ("#"*50)
-print  ("BIENVENIDO A LA AGENDA 2023")
+print  ("            BIENVENIDO A LA AGENDA 2023")
 print  ("#"*50)
 
 opcionsistema()
