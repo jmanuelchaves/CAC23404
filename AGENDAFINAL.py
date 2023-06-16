@@ -30,11 +30,11 @@ def consultarcontacto(agenda):
         print (f"El contacto no se encuentra en la agenda")
     opcionsistema()
 
-def agregarcontacto():
+def agregarcontacto(agenda):
         os.system("cls")
         contacto = input("Qué nombre quisiera agregar?").capitalize()
         contacto_validado = validar_contacto(contacto)#Toma el valor ingresado válido
-        if contacto_validado not in agenda1:
+        if contacto_validado not in agenda:
             telefono = (input(f"Ingrese el número de teléfono del contacto {contacto_validado} "))
             telefono_validado = validar_numero(telefono)
             agenda1[contacto_validado] = telefono_validado #SELE ASIGNA EL VALUE TELEFONO
@@ -43,11 +43,11 @@ def agregarcontacto():
             print("El nombre ya se encuentra en la Agenda")
         opcionsistema()
 
-def eliminarcontacto():
+def eliminarcontacto(agenda):
     os.system("cls")
     contacto = input("Qué nombre quisiera eliminar?").capitalize()
     contacto_validado = validar_contacto(contacto)
-    if contacto_validado not in agenda1:
+    if contacto_validado not in agenda:
         print (f"El contacto no se encuentra en la agenda")
     else:
         agenda1.pop(contacto_validado)
@@ -56,10 +56,10 @@ def eliminarcontacto():
         print (agenda1)
     opcionsistema()
 
-def todosloscontactos():
+def todosloscontactos(agenda):
     os.system("cls")
     print ("Esta es la lista de todos los contactos: ")
-    for todo in agenda1.items():
+    for todo in agenda.items():
         print(todo)
     opcionsistema()
 
@@ -80,11 +80,11 @@ def opcionsistema():
         case "1": 
             consultarcontacto(agenda1)
         case "2": 
-            agregarcontacto()
+            agregarcontacto(agenda1)
         case "3": 
-            eliminarcontacto()
+            eliminarcontacto(agenda1)
         case "4": 
-            todosloscontactos()
+            todosloscontactos(agenda1)
         case "5":
             print("Gracias por utilizar AGENDA 2023. ¡VUELVA PRONTO!")
         case _ :
