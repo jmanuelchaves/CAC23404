@@ -29,16 +29,22 @@ def validar_contacto(contacto):
     while contacto.strip() == "": #el método STRIP ayuda a eliminar los espacios en blanco, valida que no se ingrese un valor vacío 
         print ("No ingresó ningún valor")
         contacto = input("Ingrese nuevamente el nombre por favor").capitalize()
-        return validar_contacto(contacto)
+    return contacto
 
+def validar_numero(telefono):
+    os.system("cls")
+    while not telefono.isdigit():#is digit consulta que se ingresen digitos numéricos
+        print ("Solo se aceptan números")
+        telefono = (input("Ingrese nuevamente el teléfono por favor"))
+    return telefono
 
 def consultarcontacto():
     os.system("cls") #Limpia la terminal con el import os
     contacto = input("Qué nombre quisiera consultar? ").capitalize()
-    validar_contacto(contacto)
-    if contacto in agenda1:
-        telefono = agenda1[contacto] #SE LE ASIGNA LA VARIABLE TELEFONO AL VALUE Y CONTACTO A LA KEY
-        print (f"El teléfono de {contacto} es : {telefono}")
+    contacto_validado = validar_contacto(contacto)#Toma el valor ingresado válido
+    if contacto_validado in agenda1:
+        telefono = agenda1[contacto_validado] #SE LE ASIGNA LA VARIABLE TELEFONO AL VALUE Y CONTACTO A LA KEY
+        print (f"El teléfono de {contacto_validado} es : {telefono}")
     else:
         print (f"El contacto no se encuentra en la agenda")
     opcionsistema()
@@ -46,11 +52,12 @@ def consultarcontacto():
 def agregarcontacto():
         os.system("cls")
         contacto = input("Qué nombre quisiera agregar?").capitalize()
-        validar_contacto(contacto)
-        if contacto not in agenda1:
-            telefono = int(input(f"Ingrese el número de teléfono del contacto {contacto}"))
-            agenda1[contacto] = telefono #SELE ASIGNA EL VALUE TELEFONO
-            print (f"El teléfono del nuevo contacto {contacto} es : {telefono}")
+        contacto_validado = validar_contacto(contacto)#Toma el valor ingresado válido
+        if contacto_validado not in agenda1:
+            telefono = (input(f"Ingrese el número de teléfono del contacto {contacto_validado}"))
+            telefono_validado = validar_numero(telefono)
+            agenda1[contacto_validado] = telefono_validado #SELE ASIGNA EL VALUE TELEFONO
+            print (f"El teléfono del nuevo contacto {contacto_validado} es : {telefono_validado}")
         else:    
             print("El nombre ya se encuentra en la Agenda")
         opcionsistema()
@@ -58,12 +65,12 @@ def agregarcontacto():
 def eliminarcontacto():
     os.system("cls")
     contacto = input("Qué nombre quisiera eliminar?").capitalize()
-    validar_contacto(contacto)
-    if contacto not in agenda1:
+    contacto_validado = validar_contacto(contacto)
+    if contacto_validado not in agenda1:
         print (f"El contacto no se encuentra en la agenda")
     else:
-        agenda1.pop(contacto)
-        print (f"El contacto {contacto} se eliminó correctamente")
+        agenda1.pop(contacto_validado)
+        print (f"El contacto {contacto_validado} se eliminó correctamente")
         print ("La nueva lista en la agenda es la siguiente: ")
         print (agenda1)
     opcionsistema()
